@@ -259,7 +259,6 @@ def Getdata():
         # print("Welcome")
         while True:
             try:
-                # 是否先要确定一个element再来跑加载?
                 navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
                 # domComplete = driver.execute_script("return window.performance.timing.domComplete")
                 loadEvent = driver.execute_script("return window.performance.timing. loadEventEnd")
@@ -277,9 +276,6 @@ def Getdata():
         driver.quit()
 
 
-timelist = ['08-31 11:17:27', '08-31 11:17:34', '08-31 11:17:41', '08-31 11:18:27',
-            '08-31 11:18:47', '08-31 11:19:47','08-31 11:19:49']
-onloadlist = ['25032', '6558', '383', '3383', '1111', '2345','5000']
 
 if __name__ == '__main__':
     # Get the local user name
@@ -288,22 +284,17 @@ if __name__ == '__main__':
     # # initialize Chrome options
     chrome_options = Options()
     # chrome_options.add_argument('--headless')
-
+    # Add user info
     chrome_options.add_argument('user-data-dir=C:\\Users\\%s\\AppData\\Local\\Google\\Chrome\\User Data' % (u))
-
+    
     # chrome_driver_binary="E:\MyDownloads\Download\chromedriver.exe"
     source = "https://na66.salesforce.com/5000y00001SgXm0?srPos=0&srKp=500"
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    #
+    
+    ##Plotting
     graph = streamDetectionPlot()
     graph.initPlot()
     pause = False
-    #
     for times,values in Getdata():
         graph.DetectionPlot(times,values)
-
-
-    # for i in range(len(timelist)):
-    #     graph.DetectionPlot(timelist[i], onloadlist[i])
-
     graph.close()
